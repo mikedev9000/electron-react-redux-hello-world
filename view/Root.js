@@ -1,29 +1,19 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import * as todoActions from '../redux/actions/todoActions'
+import TodoList from './TodoList';
+import TodoAdder from './TodoAdder';
 
-class Root extends React.Component {
+export default class Root extends React.PureComponent {
+
+  shouldComponentUpdate() {
+    return false;
+  }
+
   render() {
     return (
-      <ul>
-        {this.props.todos.map(todo => <li key={todo}>{todo}</li>)}
-      </ul>
+      <div>
+        <TodoAdder />
+        <TodoList />
+      </div>
     );
   }
 }
-
-function mapStateToProps(state) {
-  return {
-      todos: state.todos
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-      actions: bindActionCreators(todoActions, dispatch)
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(
-  Root);
